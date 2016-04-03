@@ -1,8 +1,15 @@
 ---
+- name: clone repository
+  git:
+    repo: "{{ index_repository }}"
+    dest: "{{ index_root }}"
+    accept_hostkey: yes
+  tags: clone
+
 - name: set configuration files
   template:
     src: "{{ item.src }}"
-    dest: "/etc/nginx/sites-available/{{ item.dest }}"
+    dest: /etc/nginx/sites-available/{{ item.dest }}
     owner: root
     group: root
     mode: 0644
@@ -11,31 +18,31 @@
       dest: http
     - src: https.j2
       dest: https
+  notify: reload nginx
   tags: configuration
 
 - name: set certificate file
   copy:
-    src: "{{ ssl_certificate }}"
-    dest: "/etc/ssl/certs/{{ ssl_certificate }}"
+    src: "{{ item.src }}"
+    dest: /etc/ssl/{{ item.dest }}
     owner: root
     group: root
-    mode: 0644
-  tags: configuration
-
-- name: set certificate key file
-  copy:
-    src: "{{ ssl_certificate_key }}"
-    dest: "/etc/ssl/private/{{ ssl_certificate_key }}"
-    owner: root
-    group: root
-    mode: 0400
+    mode: "{{ item.mode }}"
+  with_items:
+    - src: "{{ ssl_certificate }}"
+      dest: certs/{{ ssl_certificate }}
+      mode: 0644
+    - src: "{{ ssl_certificate_key }}"
+      dest: private/{{ ssl_certificate_key }}
+      mode: 0400
+  notify: reload nginx
   tags: configuration
 
 - name: enable configuration files
   file:
     state: link
-    src: "/etc/nginx/sites-available/{{ item }}"
-    dest: "/etc/nginx/sites-enabled/{{ item }}"
+    src: /etc/nginx/sites-available/{{ item }}
+    dest: /etc/nginx/sites-enabled/{{ item }}
     owner: root
     group: root
   with_items:

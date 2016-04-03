@@ -1,5 +1,6 @@
 ---
+index_repository: https://github.com/demmys/demmyjp_index.git
 index_hostname: demmy.jp
-index_root: /var/www/html
+index_root: /var/www/demmyjp
 ssl_certificate: demmy_jp.crt
 ssl_certificate_key: demmy_jp.key
