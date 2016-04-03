@@ -1,0 +1,5 @@
+---
+index_hostname: demmy.jp
+index_root: /var/www/html
+ssl_certificate: demmy_jp.crt
+ssl_certificate_key: demmy_jp.key

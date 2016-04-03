@@ -1,0 +1,12 @@
+---
+- hosts: webservers
+  become: yes
+  roles:
+    - index
+    # - mysql
+    # - protocol_buffers
+    # - ruby
+    # - python
+  # vars_prompt:
+  #   - name: "mysql_password"
+  #     prompt: "Please enter MySQL user password"

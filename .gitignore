@@ -1,0 +1,5 @@
+/hosts
+/ansible.cfg
+/roles/index/files/*.crt
+/roles/index/files/*.key
+/*.retry

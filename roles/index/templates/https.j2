@@ -1,0 +1,18 @@
+server {
+    listen 443;
+    server_name {{ index_hostname }};
+
+    ssl on;
+    ssl_certificate /etc/ssl/certs/{{ ssl_certificate }};
+    ssl_certificate_key /etc/ssl/private/{{ ssl_certificate_key }};
+
+    location / {
+        root {{ index_root }};
+        index index.html index.nginx-debian.html;
+
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+            root {{ index_root }};
+        }
+    }
+}

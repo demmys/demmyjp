@@ -1,0 +1,33 @@
+---
+- name: install nginx
+  apt: name=nginx state=installed
+  tags: package
+
+- name: set configuration file
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: 0644
+  tags: configuration
+
+- name: create configuration directory
+  file:
+    dest: /etc/nginx/{{ item }}
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - sites-available
+    - sites-enabled
+  tags: configuration
+
+- name: disable default configuration
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  tags: configuration
+  notify: reload nginx
+
+- name: start nginx
+  service: name=nginx state=started enabled=yes
