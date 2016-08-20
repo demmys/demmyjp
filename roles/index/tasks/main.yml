@@ -8,16 +8,11 @@
 
 - name: set configuration files
   template:
-    src: "{{ item.src }}"
-    dest: /etc/nginx/sites-available/{{ item.dest }}
+    src: index.j2
+    dest: /etc/nginx/sites-available/index
     owner: root
     group: root
     mode: 0644
-  with_items:
-    - src: http.j2
-      dest: http
-    - src: https.j2
-      dest: https
   notify: reload nginx
   tags: configuration
 
@@ -41,13 +36,10 @@
 - name: enable configuration files
   file:
     state: link
-    src: /etc/nginx/sites-available/{{ item }}
-    dest: /etc/nginx/sites-enabled/{{ item }}
+    src: /etc/nginx/sites-available/index
+    dest: /etc/nginx/sites-enabled/index
     owner: root
     group: root
-  with_items:
-    - http
-    - https
   notify: reload nginx
   tags: configuration
 
