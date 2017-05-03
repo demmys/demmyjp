@@ -9,8 +9,8 @@ server {
     server_name {{ index_hostname }};
 
     ssl on;
-    ssl_certificate /etc/ssl/certs/{{ ssl_certificate }};
-    ssl_certificate_key /etc/ssl/private/{{ ssl_certificate_key }};
+    ssl_certificate /etc/letsencrypt/live/{{ index_hostname }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ index_hostname }}/privkey.pem;
 
     location / {
         root {{ index_root }};

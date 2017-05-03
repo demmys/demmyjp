@@ -5,7 +5,7 @@ This is the repository to manage demmy.jp server inflastructure, service and web
 
 # Requirements
 
-* pyenv and virtualenv (or Python 2.X environment) on host machine
+* pyenv and virtualenv (or Python 3.X environment) on host machine ([anyenv](https://github.com/riywo/anyenv) is recommended)
 * modern version of Ubuntu on remote machine
 
 # Host machine installation
@@ -20,9 +20,9 @@ cd demmyjp
 ### 2. Install Ansible
 
 ```bash
-pyenv install 2.X.Y # install latest 2.X version of Python
-pyenv virtualenv 2.X.Y ansible-2.X.Y
-pyenv local ansible-2.X.Y
+pyenv install 3.X.Y # install latest 3.X version of Python
+pyenv virtualenv 3.X.Y ansible-3.X.Y
+pyenv local ansible-3.X.Y
 pip install ansible
 pyenv rehash
 ```
@@ -35,18 +35,10 @@ vim hosts # edit for your hosts
 ansible all -i hosts -m ping
 ```
 
-### 4. Set SSL certificate
+### 4. Set up variables
 
 ```bash
-cp /your/path/to/ssl.crt roles/index/files/demmy_jp.crt
-cp /your/path/to/ssl.key roles/index/files/demmy_jp.key
-```
-
-### 5. Set variables (if needed)
-
-```bash
-mkdir group_vars
-vim group_vars/webservers.yml # set your variables
+vim group_vars/webservers.yml # edit or add your variables to override defaults
 ```
 
 # Execution

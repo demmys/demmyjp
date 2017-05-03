@@ -1,0 +1,2 @@
+---
+letsencrypt_log: /var/log/letsencrypt/cron.log

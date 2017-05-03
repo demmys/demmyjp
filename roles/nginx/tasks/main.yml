@@ -1,6 +1,6 @@
 ---
 - name: install nginx
-  apt: name=nginx state=installed
+  apt: name=nginx-extras state=installed
   tags: package
 
 - name: set configuration file

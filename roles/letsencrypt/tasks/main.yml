@@ -1,0 +1,12 @@
+---
+- name: install letsencrypt
+  apt: name=letsencrypt state=present update_cache=yes
+  tags: package
+
+- name: auto update certification
+  cron:
+    name: letsencrypt
+    cron_file: letsencrypt
+    user: root
+    special_time: daily
+    job: sh -c 'letsencrypt renew && /usr/sbin/service nginx reload' >> {{ letsencrypt_log }} 2>&1
