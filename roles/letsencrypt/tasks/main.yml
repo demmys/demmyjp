@@ -1,6 +1,11 @@
 ---
-- name: install letsencrypt
-  apt: name=letsencrypt state=present update_cache=yes
+- name: add certbot apt repository
+  apt_repository:
+    repo: 'ppa:certbot/certbot'
+  tags: package
+
+- name: install certbot
+  apt: name=python-certbot-nginx state=present update_cache=yes
   tags: package
 
 - name: auto update certification
@@ -9,4 +14,4 @@
     cron_file: letsencrypt
     user: root
     special_time: daily
-    job: sh -c 'letsencrypt renew && /usr/sbin/service nginx reload' >> {{ letsencrypt_log }} 2>&1
+    job: sh -c '/usr/bin/certbot renew && /usr/sbin/service nginx reload' >> {{ letsencrypt_log }} 2>&1

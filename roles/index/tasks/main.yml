@@ -17,7 +17,7 @@
   tags: configuration
 
 - name: get letsencrypt certification
-  command: letsencrypt certonly --webroot -d {{ index_hostname }} -w {{ index_root }} --email {{ notification_email }} --agree-tos --keep-until-expiring --non-interactive
+  command: certbot certonly --webroot -d {{ index_hostname }} -w {{ index_root }} --email {{ notification_email }} --agree-tos --keep-until-expiring --non-interactive
 
 - name: enable configuration files
   file:

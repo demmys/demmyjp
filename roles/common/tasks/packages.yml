@@ -1,4 +1,7 @@
 ---
+- name: install add-apt-repository
+  apt: name=software-properties-common state=present update_cache=yes
+
 - name: install git
-  apt: name=git state=installed
+  apt: name=git state=present update_cache=yes
   tags: package
